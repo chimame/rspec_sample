@@ -63,6 +63,9 @@ group :test do
 
   # for request spec
   gem 'rspec-request_describer'
+
+  # for email spec
+  gem 'email_spec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
