@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  example 'send mail when created' do
+    expect do
+      create(:item)
+    end.to change { ActionMailer::Base.deliveries.size }.by(1)
+  end
 end

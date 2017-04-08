@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/shinosakarb/database_rewinder.git
-  revision: 6549dbc98cab053da516d434932fddaaa587225e
-  specs:
-    database_rewinder (0.8.0)
-
-GIT
   remote: https://github.com/sinatra/sinatra.git
   revision: 34521720b6028c2fa696cf85109345a89f306c99
   specs:
@@ -79,6 +73,7 @@ GEM
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     daemons (1.2.4)
+    database_rewinder (0.8.0)
     diff-lcs (1.3)
     email_spec (2.1.0)
       htmlentities (~> 4.3.3)
@@ -256,7 +251,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   byebug
   coffee-rails (~> 4.2)
-  database_rewinder!
+  database_rewinder
   email_spec
   factory_girl_rails
   jquery-rails

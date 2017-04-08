@@ -29,6 +29,10 @@ require "email_spec/rspec"
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # FactoryGirl
+  config.include FactoryGirl::Syntax::Methods
+
+  # for controller testing
   require 'rails-controller-testing'
   [:controller, :view, :request].each do |type|
     config.include ::Rails::Controller::Testing::TestProcess, :type => type
@@ -63,4 +67,40 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:suite) do
+    DatabaseRewinder.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseRewinder.start
+
+    # clear mail
+    ActionMailer::Base.deliveries = []
+  end
+
+  config.after(:each) do
+    DatabaseRewinder.clean
+  end
+
+  config.before(:all) do
+    FactoryGirl.reload
+  end
+
+  # Filter lines from Rails gems in backtraces.
+  config.filter_rails_from_backtrace!
+  # arbitrary gems may also be filtered via:
+  # config.filter_gems_from_backtrace("gem name")
+  config.include RSpec::RequestDescriber, type: :request
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+
+    with.library :active_record
+    with.library :active_model
+    with.library :action_controller
+    with.library :rails
+  end
 end

@@ -61,7 +61,7 @@ group :test do
   gem 'factory_girl_rails'
 
   # database cleaner
-  gem 'database_rewinder', github: 'shinosakarb/database_rewinder'
+  gem 'database_rewinder'
 
   # for request spec
   gem 'rspec-request_describer'
