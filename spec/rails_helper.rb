@@ -105,3 +105,29 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+require 'capybara/dsl'
+require 'capybara/rspec'
+require 'selenium-webdriver'
+
+Capybara.server_port = 3100
+Capybara.app_host = "http://127.0.0.1:3100/"
+Capybara.register_driver :selenium_chrome do |app|
+  opts = { browser: :chrome }
+  opts[:switches] = ["--no-proxy-server"]
+#  opts[:switches] = ["--proxy-server=proxy:3128"]
+  Capybara::Selenium::Driver.new app, opts
+end
+
+Capybara.default_driver = :selenium_chrome
+ActionController::Base.asset_host = Capybara.app_host
+
+RSpec.configure do |config|
+  config.after(:each, type: :feature) do
+    while page.driver.browser.window_handles.length > 1
+      page.driver.browser.switch_to.window(page.driver.browser.window_handles[-1])
+      page.driver.browser.close
+      page.driver.browser.switch_to.window(page.driver.browser.window_handles[0])
+    end
+  end
+end
