@@ -43,6 +43,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing', require: false
+
+  # for feature spec
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'turnip'
 end
 
 group :development do
