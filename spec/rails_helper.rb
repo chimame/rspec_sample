@@ -70,6 +70,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.before(:suite) do
+    DatabaseRewinder.clean_all
     DatabaseRewinder.strategy = :truncation
   end
 
